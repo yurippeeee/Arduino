@@ -1,0 +1,2 @@
+lubuntu18.04(ubuntu18.04)上でArduinoとシリアル通信できない場合(Arduino: 1.8.13 (Linux), Board: "Arduino Uno"Error opening serial port '/dev/ttyACM0'. Try consulting the documentation at http://playground.arduino.cc/Linux/All#PermissionThis report would have more information with"Show verbose output during compilation"option enabled in File -> Preferences.　みたいなエラーのとき)、
+"sudo chmod a+rw /dev/ttyACM0"のように、書き込み・読み込み権限を付与すれば良い(この場合すべてのユーザ(a)が読み書き可(rw))

@@ -1,0 +1,43 @@
+ArduinoのRust言語開発環境の構築(lubuntu18.04)
+①sudo apt install gcc-avr
+②git clone https://github.com/avr-rust/rust.git --recursive
+③mkdir build && cd build
+④../rust/configure
+--enable-debug
+--disable-docs
+--enable-llvm-assertions
+--enable-debug-assertions
+--enable-optimize
+--enable-llvm-release-debuginfo
+--experimental-targets=AVR
+--prefix=/opt/avr-rust
+⑤make
+⑥make install
+⑦rustup toolchain link avr-toolchain $(realpath $(find . -name 'stage2'))
+⑧rustup default avr-toolchain
+
+
+makeするときにエラーが出るが、cmakeがないことが原因のため下記に従ってインストールする
+①sudo apt install libssl-dev(cmakeの./bootstrapにopensslが必要なため)
+②wget https://github.com/Kitware/CMake/releases/download/v3.17.1/cmake-3.17.1.tar.gz
+③tar zxvf cmake-3.17.1.tar.gz
+④cd cmake-3.17.1/
+⑤./bootstrap
+⑥make
+⑦sudo make install
+⑧echo 'export PATH=$HOME/cmake-3.17.1/bin/:$PATH' >> ~/.bashrc
+⑨source ~/.bashrc
+
+
+makeするときに
+note:collect2: fatal error: ld terminated with signal 9 [Killed]のようなエラーが出るが、これはメモリ不足が原因
+８GBのメモリで足りなかったので、以下のコマンドで８Gのswap領域を作成した
+
+sudo fallocate -l 8G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+また、make install するときに、「lubuntu20.04」ではmacと同様に
+sudo mkdir /usr/local/avr-rust && sudo chown ${USER} /usr/local/avr-rust
+を実行して書き込み権限のあるフォルダを作成する必要がある

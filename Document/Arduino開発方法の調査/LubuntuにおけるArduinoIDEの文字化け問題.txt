@@ -1,0 +1,15 @@
+lubuntu18.04でArduino1.8.13を使用すると日本語フォントで文字化けが起こる。
+日本語表示は難しそうなので、~/.Arduino15/preference.txt内のeditor.languages.current=の部分に"en"と追記すれば英語表記に変えられる。
+
+もしくは、
+
+Cicaというフォントを入れることで解決した。
+フォントの入れ方は、
+①curl -L -O https://github.com/miiton/Cica/releases/download/v5.0.2/Cica_v5.0.2_with_emoji.zip
+②unzip Cica_v5.0.2_with_emoji.zip
+③sudo mkdir /usr/share/fonts/truetype/cica
+④sudo cp *.ttf /usr/share/fonts/truetype/cica/
+⑤sudo fc-cache -vf
+フォントが入ったかどうかの確認は、”fc-list | grep -i cica”で可能。
+この状態で、
+~/.Arduino15/preference.txtを"editor.font=Cica,plain,18 "、"editor.languages.current=jp"と編集すればArduino IDEが日本語表示になる
