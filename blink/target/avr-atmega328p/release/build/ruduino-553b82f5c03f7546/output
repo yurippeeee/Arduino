@@ -1,0 +1,2 @@
+loading pack '/home/takuya/.cargo/registry/src/github.com-1ecc6299db9ec823/avr-mcu-0.3.5/packs/atmega/ATmega328P.atdf'
+cargo:rustc-cfg=avr_mcu_atmega328p
